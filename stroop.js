@@ -1,10 +1,12 @@
-const colors = [
-  "Black","Blue","Green","Orange","Pink","Purple","Red","Yellow"
-];
 
 const randomizeTarget = (target) => {
-  let randomColor = colors[Math.floor(Math.random() * colors.length)];
-  target.innerHTML = randomColor;
+  const colors = [
+    "Black","Blue","Green","Orange","Pink","Purple","Red","Yellow"
+  ];
+  
+  let randIdx = Math.floor(Math.random() * colors.length);
+  let randomColor = colors.splice(randIdx, 1);
+  target.innerHTML = randomColor[0];
   randomColor = colors[Math.floor(Math.random() * colors.length)];
   target.style.color = randomColor;
 
