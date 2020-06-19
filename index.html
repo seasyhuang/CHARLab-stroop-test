@@ -20,16 +20,23 @@
       <div class="container">
         <h1 class="display-4">Stroop Test </h1>
         <a class="btn btn-primary text-white" id="startBtn">Start <i class="fas fa-palette"></i></a>
+        <a class="btn btn-warning text-white d-none" id="restartBtn">Restart <i class="fas fa-undo"></i></a>
+        <a class="btn btn-dark text-white d-none" id="endBtn">End</a>
       </div>
     </div>
 
     <div class="container">
-      <!-- <div class="row d-none"> -->
       <div class="row">
         <div class="col-6 text-center">
           <h4>Participant Instructions</h4>
-          <p>Say the <strong>color</strong> of the following word:</p>
-          <div id="target"></div>
+          <div id="participantView">
+            <p>Say the <strong>color</strong> of the following word:</p>
+            <div id="target"></div>
+          </div>
+          <div id="participantEnd" class="d-none">
+            <p>Thank you for participating!</p>
+            <!-- final score -->
+          </div>
         </div>
 
         <div class="col-6 text-center">

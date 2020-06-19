@@ -1,4 +1,6 @@
 const startBtn = document.querySelector('#startBtn');
+const restartBtn = document.querySelector('#restartBtn');
+const endBtn = document.querySelector('#endBtn');
 const successBtn = document.querySelector('#successBtn');
 const failBtn = document.querySelector('#failBtn');
 
@@ -38,13 +40,35 @@ const updateScore = (situation = '') => {
   totalSpan.innerHTML = scoreTotal;
 }
 
-
 startBtn.addEventListener('click', () => {
-  document.querySelector('.row').classList.remove('d-none');
   randomizeTarget(target);
   updateScore();
-  // add: if started - change start to restart
+
+  // Change button to restart button, show end button
+  startBtn.classList.add('d-none');
+  restartBtn.classList.remove('d-none');
+  endBtn.classList.remove('d-none');
+
+  document.querySelector('#participantView').classList.remove('d-none');
+  document.querySelector('#participantEnd').classList.add('d-none');
 })
+
+restartBtn.addEventListener('click', () => {
+  randomizeTarget(target);
+  updateScore();
+})
+
+endBtn.addEventListener('click', () => {
+  startBtn.classList.remove('d-none');
+  restartBtn.classList.add('d-none');
+  endBtn.classList.add('d-none');
+
+  document.querySelector('#participantView').classList.add('d-none');
+  document.querySelector('#participantEnd').classList.remove('d-none');
+
+  // show final score
+})
+
 
 successBtn.addEventListener('click', () => {
   randomizeTarget(target);
