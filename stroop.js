@@ -24,6 +24,7 @@ const randomizeTarget = (target) => {
   targetSpan.innerHTML = randomColor;
 }
 
+// function (w cases)
 const updateScore = (situation = '') => {
   if (situation === 'correct') {
     scoreCorrect += 1;
@@ -40,6 +41,10 @@ const updateScore = (situation = '') => {
   totalSpan.innerHTML = scoreTotal;
 }
 
+// function
+// refactor:
+// start game - incl. un/disable correct/incorrect buttons
+
 startBtn.addEventListener('click', () => {
   randomizeTarget(target);
   updateScore();
@@ -51,6 +56,10 @@ startBtn.addEventListener('click', () => {
 
   document.querySelector('#participantView').classList.remove('d-none');
   document.querySelector('#participantEnd').classList.add('d-none');
+
+  // undisable buttons
+  successBtn.disabled = false;
+  failBtn.disabled = false;
 })
 
 restartBtn.addEventListener('click', () => {
@@ -67,6 +76,14 @@ endBtn.addEventListener('click', () => {
   document.querySelector('#participantEnd').classList.remove('d-none');
 
   // show final score
+  document.querySelector('#participantEnd').innerHTML = `
+    <p>Thank you for participating!</p>
+    <p>Final score: <strong>${correctSpan.innerText}/${totalSpan.innerText}</strong></p>
+  `;
+
+  // disable buttons
+  successBtn.disabled = true;
+  failBtn.disabled = true;
 })
 
 

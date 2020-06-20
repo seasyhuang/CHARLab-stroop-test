@@ -33,9 +33,7 @@
             <p>Say the <strong>color</strong> of the following word:</p>
             <div id="target"></div>
           </div>
-          <div id="participantEnd" class="d-none">
-            <p>Thank you for participating!</p>
-            <!-- final score -->
+          <div id="participantEnd">
           </div>
         </div>
 
@@ -46,8 +44,8 @@
               <p class="card-text">
                 Participant should say "<span id="targetSpan"></span>"
               </p>
-              <button class="btn btn-success" id="successBtn">Correct</button>
-              <button class="btn btn-danger" id="failBtn">Incorrect</button>
+              <button class="btn btn-success" disabled id="successBtn">Correct</button>
+              <button class="btn btn-danger" disabled id="failBtn">Incorrect</button>
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">Current score: <strong><span id="correctSpan"></span>/<span id="totalSpan"></span></strong> </li>
