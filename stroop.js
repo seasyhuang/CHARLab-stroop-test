@@ -1,8 +1,8 @@
 const startBtn = document.querySelector('#startBtn');
 const restartBtn = document.querySelector('#restartBtn');
 const endBtn = document.querySelector('#endBtn');
-const successBtn = document.querySelector('#successBtn');
-const failBtn = document.querySelector('#failBtn');
+const correctBtn = document.querySelector('#correctBtn');
+const incorrectBtn = document.querySelector('#incorrectBtn');
 
 const correctSpan = document.querySelector('#correctSpan');
 const totalSpan = document.querySelector('#totalSpan');
@@ -24,7 +24,6 @@ const randomizeTarget = (target) => {
   targetSpan.innerHTML = randomColor;
 }
 
-// function (w cases)
 const updateScore = (situation = '') => {
   if (situation === 'correct') {
     scoreCorrect += 1;
@@ -32,7 +31,7 @@ const updateScore = (situation = '') => {
   }  else if (situation === 'incorrect') {
     scoreTotal += 1;
   } else if (situation === '') {
-    // start/restart
+    // reset score
     scoreCorrect = 0;
     scoreTotal = 0;
   }
@@ -41,58 +40,76 @@ const updateScore = (situation = '') => {
   totalSpan.innerHTML = scoreTotal;
 }
 
-// function
-// refactor:
-// start game - incl. un/disable correct/incorrect buttons
-
-startBtn.addEventListener('click', () => {
+const startTest = () => {
   randomizeTarget(target);
+
+  // Reset the score
   updateScore();
 
-  // Change button to restart button, show end button
+  // Show restart and end buttons in header
   startBtn.classList.add('d-none');
   restartBtn.classList.remove('d-none');
   endBtn.classList.remove('d-none');
 
+  // Show active participant and test leader instructions, hide end screen
   document.querySelector('#participantView').classList.remove('d-none');
   document.querySelector('#participantEnd').classList.add('d-none');
 
-  // undisable buttons
-  successBtn.disabled = false;
-  failBtn.disabled = false;
-})
+  // Enable test leader un/success buttons
+  correctBtn.disabled = false;
+  incorrectBtn.disabled = false;
+}
 
-restartBtn.addEventListener('click', () => {
-  randomizeTarget(target);
-  updateScore();
-})
-
-endBtn.addEventListener('click', () => {
+const endTest = () => {
+  // Show start button in header
   startBtn.classList.remove('d-none');
   restartBtn.classList.add('d-none');
   endBtn.classList.add('d-none');
 
+  // Show end screen and hide active screens
   document.querySelector('#participantView').classList.add('d-none');
   document.querySelector('#participantEnd').classList.remove('d-none');
 
-  // show final score
+  // Show final score to participant
   document.querySelector('#participantEnd').innerHTML = `
     <p>Thank you for participating!</p>
-    <p>Final score: <strong>${correctSpan.innerText}/${totalSpan.innerText}</strong></p>
+    <p>Final score: <strong>${getFinalScore()}%</strong></p>
   `;
 
-  // disable buttons
-  successBtn.disabled = true;
-  failBtn.disabled = true;
+  // Disable test leader un/success buttons
+  correctBtn.disabled = true;
+  incorrectBtn.disabled = true;
+}
+
+const getFinalScore = () => {
+  if (totalSpan.innerText == 0) {
+    return '0';
+  }
+  let score = Math.round(correctSpan.innerText / totalSpan.innerText * 100);
+  return score;
+}
+
+
+// Header buttons
+startBtn.addEventListener('click', () => {
+  startTest();
 })
 
+restartBtn.addEventListener('click', () => {
+  startTest();
+})
 
-successBtn.addEventListener('click', () => {
+endBtn.addEventListener('click', () => {
+  endTest();
+})
+
+// Test leader buttons
+correctBtn.addEventListener('click', () => {
   randomizeTarget(target);
   updateScore('correct');
 })
 
-failBtn.addEventListener('click', () => {
+incorrectBtn.addEventListener('click', () => {
   randomizeTarget(target);
   updateScore('incorrect');
 })
